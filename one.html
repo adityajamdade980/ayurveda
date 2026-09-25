@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP-SAKTI Sahayak</title>
+
+  <style>
+    :root {
+      --purple: #542a78;
+      --dark-purple: #2d1249;
+      --light-purple: #f1e8f7;
+      --gold: #efad2d;
+      --cream: #fff9ef;
+      --white: #ffffff;
+      --background: #f7f4fa;
+      --text: #292330;
+      --muted: #746c7c;
+      --border: #e5ddec;
+      --green: #178554;
+      --red: #c83d3d;
+      --yellow-bg: #fff6d8;
+      --shadow: 0 12px 28px rgba(62, 30, 91, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--background);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    /* ======================================
+       LOGIN PAGE
+    ====================================== */
+
+    .login-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(238, 171, 44, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(93, 43, 132, 0.2), transparent 35%),
+        linear-gradient(130deg, #faf5ff, #fff9ed);
+    }
+
+    .login-container {
+      width: min(1120px, 100%);
+      min-height: 660px;
+      display: grid;
+      grid-template-columns: 1.13fr 0.87fr;
+      overflow: hidden;
+      border-radius: 28px;
+      background: var(--white);
+      box-shadow: 0 20px 55px rgba(54, 26, 80, 0.18);
+    }
+
+    .login-left {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 45px 52px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(43, 15, 73, 0.96), rgba(108, 59, 142, 0.92)),
+        url("https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .login-left::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -140px;
+      width: 410px;
+      height: 410px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(243, 181, 49, 0.3), transparent 70%);
+      animation: glowPulse 5s infinite ease-in-out;
+    }
+
+    .login-left::after {
+      content: "";
+      position: absolute;
+      bottom: -160px;
+      left: -100px;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(203, 129, 238, 0.25), transparent 70%);
+      animation: glowPulse 6s infinite ease-in-out reverse;
+    }
+
+    .brand {
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--dark-purple);
+      background: var(--gold);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.18);
+      font-size: 23px;
+    }
+
+    .hero-content {
+      z-index: 4;
+      margin-top: 22px;
+    }
+
+    .mini-label {
+      margin-bottom: 14px;
+      color: #ffd571;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+    }
+
+    .hero-content h1 {
+      max-width: 520px;
+      margin-bottom: 16px;
+      font-size: clamp(33px, 4vw, 48px);
+      line-height: 1.12;
+    }
+
+    .hero-content p {
+      max-width: 505px;
+      color: #f1e7f6;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .hero-content ul {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+      list-style: none;
+      color: #fff3db;
+      font-size: 13px;
+    }
+
+    .scene-container {
+      z-index: 4;
+      position: relative;
+      height: 240px;
+      perspective: 900px;
+    }
+
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      animation: sceneRotate 16s infinite linear;
+    }
+
+    .ai-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 110px;
+      height: 110px;
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+    }
+
+    .core-center {
+      position: absolute;
+      inset: 26px;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      border: 2px solid #ffe6a4;
+      border-radius: 50%;
+      color: #3c1d59;
+      background: radial-gradient(circle, #ffdb77, #e99b24);
+      box-shadow: 0 0 25px rgba(255, 204, 87, 0.95);
+      font-size: 31px;
+      animation: corePulse 2.5s infinite ease-in-out;
+    }
+
+    .core-ring {
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba(255, 224, 130, 0.75);
+      border-radius: 50%;
+    }
+
+    .ring-one {
+      transform: rotateX(72deg);
+      animation: ringOne 4s infinite linear;
+    }
+
+    .ring-two {
+      border-color: rgba(220, 159, 245, 0.85);
+      transform: rotateY(72deg);
+      animation: ringTwo 5.5s infinite linear;
+    }
+
+    .ring-three {
+      border-style: dashed;
+      transform: rotateZ(45deg);
+      animation: ringThree 7s infinite linear;
+    }
+
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1px solid rgba(255, 228, 144, 0.43);
+      border-radius: 50%;
+    }
+
+    .orbit-one {
+      width: 255px;
+      height: 82px;
+      transform: translate(-50%, -50%) rotateX(65deg);
+      animation: orbitOne 8s infinite linear;
+    }
+
+    .orbit-two {
+      width: 175px;
+      height: 250px;
+      border-color: rgba(218, 154, 248, 0.53);
+      transform: translate(-50%, -50%) rotateY(65deg);
+      animation: orbitTwo 10s infinite linear;
+    }
+
+    .floating-leaf {
+      position: absolute;
+      z-index: 7;
+      filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.25));
+      font-size: 27px;
+    }
+
+    .leaf-one {
+      top: 25%;
+      left: 19%;
+      animation: floatLeafOne 4s infinite ease-in-out;
+    }
+
+    .leaf-two {
+      right: 18%;
+      bottom: 22%;
+      animation: floatLeafTwo 5s infinite ease-in-out;
+    }
+
+    .leaf-three {
+      bottom: 6%;
+      left: 44%;
+      font-size: 22px;
+      animation: floatLeafThree 4.4s infinite ease-in-out;
+    }
+
+    .knowledge-card {
+      position: absolute;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 64px;
+      padding: 7px 8px;
+      border: 1px solid rgba(255, 229, 161, 0.6);
+      border-radius: 10px;
+      color: white;
+      background: rgba(45, 16, 72, 0.7);
+      box-shadow: 0 7px 13px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(5px);
+    }
+
+    .knowledge-card span {
+      font-size: 18px;
+    }
+
+    .knowledge-card small {
+      color: #ffdc83;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .card-one {
+      top: 10%;
+      right: 14%;
+      animation: cardFloatOne 4.5s infinite ease-in-out;
+    }
+
+    .card-two {
+      bottom: 5%;
+      left: 11%;
+      animation: cardFloatTwo 5s infinite ease-in-out;
+    }
+
+    .card-three {
+      top: 54%;
+      right: 4%;
+      animation: cardFloatThree 4.3s infinite ease-in-out;
+    }
+
+    .particle {
+      position: absolute;
+      z-index: 2;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f7c44e;
+      box-shadow: 0 0 15px #f7c44e;
+      animation: particleMove 6s infinite ease-in-out;
+    }
+
+    .p1 { top: 15%; left: 14%; animation-delay: 0s; }
+    .p2 { top: 34%; right: 10%; animation-delay: 1s; width: 5px; height: 5px; }
+    .p3 { top: 62%; left: 8%; animation-delay: 2s; width: 5px; height: 5px; }
+    .p4 { bottom: 14%; right: 29%; animation-delay: 3s; }
+    .p5 { bottom: 25%; left: 38%; animation-delay: 1.5s; width: 4px; height: 4px; }
+
+    .bottom-note {
+      z-index: 4;
+      color: #e8d9f0;
+      font-size: 11px;
+    }
+
+    .login-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 45px;
+    }
+
+    .login-right h2 {
+      margin-bottom: 9px;
+      color: var(--dark-purple);
+      font-size: 30px;
+    }
+
+    .login-right > p {
+      margin-bottom: 26px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #4a4054;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: #fefcff;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(84, 42, 120, 0.12);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .primary-btn {
+      padding: 14px 18px;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, var(--purple), #7a4a9e);
+      box-shadow: 0 8px 16px rgba(84, 42, 120, 0.2);
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .login-right .primary-btn {
+      width: 100%;
+    }
+
+    .error-text {
+      min-height: 18px;
+      margin-top: 11px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .demo-note {
+      margin-top: 18px;
+      padding: 12px;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      color: #715511;
+      background: #fff6d9;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* ======================================
+       START PAGE
+    ====================================== */
+
+    .start-page {
+      background: linear-gradient(130deg, #faf5ff, #fffaf2);
+    }
+
+    .start-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      padding: 0 7%;
+      border-bottom: 1px solid var(--border);
+      background: white;
+    }
+
+    .dark-brand {
+      color: var(--dark-purple);
+    }
+
+    .nav-user {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .logout-btn {
+      color: var(--purple);
+      background: transparent;
+      font-weight: 800;
+    }
+
+    .start-main {
+      width: min(1180px, 100%);
+      margin: auto;
+      padding: 60px 25px;
+    }
+
+    .start-banner {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 48px;
+      border-radius: 23px;
+      color: white;
+      background: linear-gradient(135deg, #2e1349, #754795);
+      box-shadow: var(--shadow);
+    }
+
+    .banner-content {
+      z-index: 2;
+      width: 63%;
+    }
+
+    .banner-content h1 {
+      max-width: 650px;
+      margin-bottom: 15px;
+      font-size: clamp(31px, 4vw, 46px);
+      line-height: 1.15;
+    }
+
+    .banner-content p {
+      max-width: 600px;
+      margin-bottom: 24px;
+      color: #eadff1;
+      line-height: 1.65;
+    }
+
+    .launch-btn {
+      min-width: 200px;
+      color: var(--dark-purple);
+      background: var(--gold);
+    }
+
+    .banner-art {
+      position: absolute;
+      top: 20px;
+      right: 42px;
+      width: 280px;
+      height: 280px;
+      border: 2px solid rgba(255, 224, 135, 0.34);
+      border-radius: 50%;
+      animation: slowRotate 14s infinite linear;
+    }
+
+    .banner-art::before,
+    .banner-art::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .banner-art::before {
+      width: 160px;
+      height: 160px;
+      border: 2px dashed rgba(255, 218, 108, 0.72);
+    }
+
+    .banner-art::after {
+      width: 82px;
+      height: 82px;
+      background: radial-gradient(circle, #ffda77, #e89c24);
+      box-shadow: 0 0 30px rgba(255, 215, 102, 0.85);
+    }
+
+    .banner-leaf {
+      position: absolute;
+      z-index: 3;
+      right: 138px;
+      top: 135px;
+      font-size: 36px;
+      animation: floatLeafOne 4s infinite ease-in-out;
+    }
+
+    .start-main h2 {
+      margin: 40px 0 19px;
+      color: var(--dark-purple);
+      font-size: 25px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+    }
+
+    .module-card {
+      min-height: 200px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: white;
+      transition: 0.2s;
+    }
+
+    .module-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .module-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      color: var(--purple);
+      background: var(--light-purple);
+      font-size: 23px;
+    }
+
+    .module-card h3 {
+      margin-bottom: 8px;
+      color: var(--dark-purple);
+      font-size: 16px;
+    }
+
+    .module-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    /* ======================================
+       MAIN APP
+    ====================================== */
+
+    #appPage {
+      display: flex;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 255px;
+      min-height: 100vh;
+      padding: 23px 14px;
+      color: white;
+      background: var(--dark-purple);
+    }
+
+    .sidebar .brand {
+      padding: 0 8px 21px;
+      margin-bottom: 17px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-link {
+      width: 100%;
+      margin-bottom: 6px;
+      padding: 13px 14px;
+      border-radius: 9px;
+      color: #e2d4eb;
+      text-align: left;
+      background: transparent;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .nav-link.active {
+      border-left: 4px solid var(--gold);
+    }
+
+    .sidebar-note {
+      position: absolute;
+      bottom: 23px;
+      left: 22px;
+      right: 22px;
+      color: #d8c9e0;
+      line-height: 1.55;
+      font-size: 11px;
+    }
+
+    .sidebar-note strong {
+      color: var(--gold);
+    }
+
+    .main-content {
+      width: calc(100% - 255px);
+      min-height: 100vh;
+      margin-left: 255px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      padding: 0 33px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .topbar h2 {
+      margin-bottom: 4px;
+      color: var(--dark-purple);
+      font-size: 22px;
+    }
+
+    .topbar p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .topbar-right select {
+      width: auto;
+      margin: 0;
+      padding: 9px;
+    }
+
+    .profile-button {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 11px 6px 6px;
+      border-radius: 22px;
+      color: var(--dark-purple);
+      background: var(--light-purple);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    #avatar {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--purple);
+    }
+
+    .content-area {
+      max-width: 1450px;
+      padding: 31px 34px 55px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 4px 13px rgba(66, 42, 83, 0.05);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: var(--dark-purple);
+      font-size: 18px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .action-grid button {
+      padding: 15px;
+      border: 1px solid #e2d4eb;
+      border-radius: 10px;
+      color: var(--dark-purple);
+      text-align: left;
+      background: #fcfaff;
+      font-weight: 800;
+    }
+
+    .action-grid button:hover {
+      background: var(--light-purple);
+    }
+
+    .score-card {
+      color: white;
+      background: linear-gradient(135deg, #3a1a59, #71428e);
+    }
+
+    .score-card h3,
+    .score-card p {
+      color: white;
+    }
+
+    .score-card p {
+      color: #ebddf1;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .score-circle {
+      width: 132px;
+      height: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      border: 10px solid rgba(255, 255, 255, 0.16);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+    }
+
+    .score-circle strong {
+      font-size: 27px;
+    }
+
+    .score-circle span {
+      color: #eadcf2;
+      font-size: 11px;
+    }
+
+    .dashboard-list {
+      display: grid;
+      gap: 10px;
+      list-style-position: inside;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .visual-insight-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 19px;
+    }
+
+    .visual-card {
+      position: relative;
+      min-height: 225px;
+      overflow: hidden;
+      border-radius: 16px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .visual-card:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .herb-visual {
+      background-image:
+        linear-gradient(135deg, rgba(31, 64, 33, 0.78), rgba(28, 12, 49, 0.48)),
+        url("https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=1000&q=80");
+    }
+
+    .ai-visual {
+      background-image:
+        linear-gradient(135deg, rgba(42, 13, 67, 0.82), rgba(155, 93, 11, 0.48)),
+        url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1000&q=80");
+    }
+
+    .visual-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      color: white;
+    }
+
+    .visual-overlay span {
+      color: #ffd36d;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+    }
+
+    .visual-overlay h3 {
+      margin: 9px 0 7px;
+      font-size: 21px;
+    }
+
+    .visual-overlay p {
+      max-width: 400px;
+      color: #f3eaf6;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .screen > h2 {
+      margin-bottom: 8px;
+      color: var(--dark-purple);
+    }
+
+    .screen-description {
+      max-width: 850px;
+      margin-bottom: 22px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .form-card {
+      max-width: 950px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .full-column {
+      grid-column: 1 / -1;
+    }
+
+    .small-btn {
+      width: auto;
+      margin-top: 17px;
+      padding: 13px 20px;
+    }
+
+    .secondary-btn {
+      margin: 17px 0 0 8px;
+      padding: 13px 17px;
+      border-radius: 10px;
+      color: var(--purple);
+      background: var(--light-purple);
+      font-weight: 800;
+    }
+
+    .result-box {
+      margin-top: 22px;
+      padding: 18px;
+      border-left: 5px solid var(--gold);
+      border-radius: 9px;
+      color: #62542a;
+      background: var(--yellow-bg);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .result-box h4 {
+      margin-bottom: 8px;
+      color: #70530a;
+    }
+
+    .result-box ul {
+      padding-left: 19px;
+      margin-top: 8px;
+    }
+
+    .passport-output {
+      margin-top: 24px;
+      overflow: hidden;
+      border: 1px solid #dac4e8;
+      border-radius: 14px;
+    }
+
+    .passport-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 20px;
+      color: white;
+      background: linear-gradient(135deg, var(--dark-purple), #744596);
+    }
+
+    .passport-header h3 {
+      margin-bottom: 5px;
+    }
+
+    .passport-header p,
+    .passport-header span {
+      color: #e9dcef;
+      font-size: 12px;
+    }
+
+    .passport-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 20px;
+    }
+
+    .passport-grid div {
+      padding: 13px;
+      border: 1px solid #eee5f3;
+      border-radius: 10px;
+      background: #fcfaff;
+    }
+
+    .passport-grid strong {
+      color: var(--dark-purple);
+      font-size: 13px;
+    }
+
+    .passport-grid p {
+      margin-top: 7px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    /* CHAT */
+
+    .chat-container {
+      max-width: 950px;
+      min-height: 570px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+    }
+
+    .chat-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 17px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, var(--purple), #9d60bb);
+      font-size: 21px;
+    }
+
+    .chat-header h3 {
+      margin-bottom: 3px;
+      color: var(--dark-purple);
+    }
+
+    .chat-header p {
+      color: var(--green);
+      font-size: 12px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      min-height: 410px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fdfcff;
+    }
+
+    .message {
+      max-width: 78%;
+      padding: 13px 15px;
+      border-radius: 14px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .bot-message {
+      align-self: flex-start;
+      color: #3a2946;
+      background: var(--light-purple);
+      border-bottom-left-radius: 3px;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      color: white;
+      background: var(--purple);
+      border-bottom-right-radius: 3px;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-input input {
+      flex: 1;
+      margin: 0;
+    }
+
+    .chat-input button {
+      padding: 0 20px;
+      border-radius: 10px;
+      color: white;
+      background: var(--purple);
+      font-weight: 800;
+    }
+
+    /* SOURCES */
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .source-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+    }
+
+    .source-card span {
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .source-card h3 {
+      margin: 11px 0 9px;
+      color: var(--dark-purple);
+      line-height: 1.4;
+      font-size: 17px;
+    }
+
+    .source-card p {
+      min-height: 61px;
+      margin-bottom: 15px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .source-card a {
+      color: var(--purple);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* ANIMATION KEYFRAMES */
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.18); }
+    }
+
+    @keyframes sceneRotate {
+      from { transform: rotateY(0deg) rotateX(5deg); }
+      to { transform: rotateY(360deg) rotateX(5deg); }
+    }
+
+    @keyframes corePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    @keyframes ringOne {
+      from { transform: rotateX(72deg) rotateZ(0deg); }
+      to { transform: rotateX(72deg) rotateZ(360deg); }
+    }
+
+    @keyframes ringTwo {
+      from { transform: rotateY(72deg) rotateZ(0deg); }
+      to { transform: rotateY(72deg) rotateZ(-360deg); }
+    }
+
+    @keyframes ringThree {
+      from { transform: rotateZ(45deg); }
+      to { transform: rotateZ(405deg); }
+    }
+
+    @keyframes orbitOne {
+      from { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(0deg); }
+      to { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(360deg); }
+    }
+
+    @keyframes orbitTwo {
+      from { transform: translate(-50%, -50%) rotateY(65deg) rotateZ(0deg); }
+      to { transform: translate(-50%, -50%) rotateY(65deg) rotateZ(-360deg); }
+    }
+
+    @keyframes floatLeafOne {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-16px) rotate(13deg); }
+    }
+
+    @keyframes floatLeafTwo {
+      0%, 100% { transform: translateY(0) rotate(9deg); }
+      50% { transform: translateY(-18px) rotate(-11deg); }
+    }
+
+    @keyframes floatLeafThree {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-13px) rotate(16deg); }
+    }
+
+    @keyframes cardFloatOne {
+      0%, 100% { transform: translateY(0) rotateY(0deg); }
+      50% { transform: translateY(-15px) rotateY(18deg); }
+    }
+
+    @keyframes cardFloatTwo {
+      0%, 100% { transform: translateY(0) rotateY(0deg); }
+      50% { transform: translateY(-13px) rotateY(-18deg); }
+    }
+
+    @keyframes cardFloatThree {
+      0%, 100% { transform: translateY(0) rotateX(0deg); }
+      50% { transform: translateY(-17px) rotateX(15deg); }
+    }
+
+    @keyframes particleMove {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.45; }
+      50% { transform: translateY(-22px) scale(1.4); opacity: 1; }
+    }
+
+    @keyframes slowRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1050px) {
+      .module-grid,
+      .source-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .login-container {
+        grid-template-columns: 1fr;
+      }
+
+      .login-left {
+        min-height: 520px;
+      }
+
+      .sidebar {
+        width: 210px;
+      }
+
+      .main-content {
+        width: calc(100% - 210px);
+        margin-left: 210px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .banner-content {
+        width: 72%;
+      }
+
+      .banner-art {
+        right: -70px;
+        opacity: 0.4;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .login-page {
+        padding: 0;
+      }
+
+      .login-container {
+        border-radius: 0;
+      }
+
+      .login-left,
+      .login-right {
+        padding: 32px 24px;
+      }
+
+      .login-left {
+        min-height: 505px;
+      }
+
+      .scene-container {
+        height: 190px;
+      }
+
+      .knowledge-card {
+        transform: scale(0.8);
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .topbar {
+        padding: 0 16px;
+      }
+
+      .topbar-right select,
+      #topUserName {
+        display: none;
+      }
+
+      .content-area {
+        padding: 22px 16px 45px;
+      }
+
+      .module-grid,
+      .form-grid,
+      .passport-grid,
+      .source-grid,
+      .action-grid,
+      .visual-insight-section {
+        grid-template-columns: 1fr;
+      }
+
+      .start-nav {
+        padding: 0 20px;
+      }
+
+      .start-main {
+        padding: 35px 18px;
+      }
+
+      .start-banner {
+        padding: 31px 24px;
+      }
+
+      .banner-content {
+        width: 100%;
+      }
+
+      .banner-art {
+        display: none;
+      }
+
+      .passport-header {
+        flex-direction: column;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="page login-page">
+
+    <div class="login-container">
+
+      <div class="login-left">
+
+        <span class="particle p1"></span>
+        <span class="particle p2"></span>
+        <span class="particle p3"></span>
+        <span class="particle p4"></span>
+        <span class="particle p5"></span>
+
+        <div class="brand">
+          <div class="brand-icon">⚖</div>
+          <span>IP-SAKTI Sahayak</span>
+        </div>
+
+        <div class="hero-content">
+          <p class="mini-label">AI • AYURVEDA • INTELLECTUAL PROPERTY</p>
+
+          <h1>Protect Ayurveda.<br />Build Ethical Innovation.</h1>
+
+          <p>
+            A multilingual AI platform for intellectual property,
+            traditional knowledge protection, regulatory guidance
+            and responsible Ayurveda innovation.
+          </p>
+
+          <ul>
+            <li>✓ Traditional Knowledge risk screening</li>
+            <li>✓ Innovation Passport generation</li>
+            <li>✓ India and global regulatory route guidance</li>
+            <li>✓ Source-aware AI assistant</li>
+          </ul>
+        </div>
+
+        <div class="scene-container">
+          <div class="scene">
+
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+
+            <div class="floating-leaf leaf-one">🌿</div>
+            <div class="floating-leaf leaf-two">🍃</div>
+            <div class="floating-leaf leaf-three">🌱</div>
+
+            <div class="ai-core">
+              <div class="core-ring ring-one"></div>
+              <div class="core-ring ring-two"></div>
+              <div class="core-ring ring-three"></div>
+
+              <div class="core-center">⚖</div>
+            </div>
+
+            <div class="knowledge-card card-one">
+              <span>📜</span>
+              <small>TKDL</small>
+            </div>
+
+            <div class="knowledge-card card-two">
+              <span>🤖</span>
+              <small>RAG AI</small>
+            </div>
+
+            <div class="knowledge-card card-three">
+              <span>🌿</span>
+              <small>AYUSH</small>
+            </div>
+
+          </div>
+        </div>
+
+        <small class="bottom-note">
+          SIH Prototype • Educational Guidance Only • Responsible AI
+        </small>
+      </div>
+
+      <div class="login-right">
+        <h2>Welcome to IP-SAKTI</h2>
+        <p>Login to begin your Ayurveda innovation journey.</p>
+
+        <form id="loginForm">
+          <label for="loginName">Full Name</label>
+          <input id="loginName" type="text" placeholder="Enter your name" required />
+
+          <label for="loginEmail">Email Address</label>
+          <input id="loginEmail" type="email" placeholder="example@email.com" required />
+
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="Minimum 4 characters" required />
+
+          <button class="primary-btn" type="submit">Login and Continue →</button>
+
+          <p id="loginError" class="error-text"></p>
+        </form>
+
+        <div class="demo-note">
+          <strong>Demo Login:</strong><br />
+          Use any valid email and a password of at least four characters.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- START PAGE -->
+  <section id="startPage" class="page start-page hidden">
+
+    <nav class="start-nav">
+      <div class="brand dark-brand">
+        <div class="brand-icon">⚖</div>
+        <span>IP-SAKTI Sahayak</span>
+      </div>
+
+      <div class="nav-user">
+        <span id="welcomeUser">Welcome</span>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <main class="start-main">
+
+      <section class="start-banner">
+        <div class="banner-content">
+          <p class="mini-label">ETHICAL INNOVATION PLATFORM</p>
+
+          <h1>From Traditional Knowledge to Trusted Innovation.</h1>
+
+          <p>
+            Identify traditional knowledge risks, document your innovation,
+            track ingredient provenance and understand regulatory pathways.
+          </p>
+
+          <button class="primary-btn launch-btn" onclick="launchApp()">
+            Start Using IP-SAKTI →
+          </button>
+        </div>
+
+        <div class="banner-art"></div>
+        <div class="banner-leaf">🌿</div>
+      </section>
+
+      <h2>Core Modules</h2>
+
+      <section class="module-grid">
+
+        <div class="module-card">
+          <div class="module-icon">🔍</div>
+          <h3>TK Risk Checker</h3>
+          <p>Check possible overlap between your innovation and traditional Ayurveda knowledge.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">📜</div>
+          <h3>Innovation Passport</h3>
+          <p>Create a structured record of innovation, source data and technical contribution.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">🌐</div>
+          <h3>ReguRoute</h3>
+          <p>Explore India, European Union and United States regulatory considerations.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">🤖</div>
+          <h3>AI Sahayak</h3>
+          <p>Ask educational questions about patents, Ayurveda, regulations and sources.</p>
+        </div>
+
+      </section>
+    </main>
+  </section>
+
+  <!-- MAIN APPLICATION -->
+  <section id="appPage" class="page hidden">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">⚖</div>
+        <span>IP-SAKTI</span>
+      </div>
+
+      <button class="nav-link active" onclick="showScreen('dashboard', this)">🏠 Dashboard</button>
+      <button class="nav-link" onclick="showScreen('assistant', this)">🤖 AI Sahayak</button>
+      <button class="nav-link" onclick="showScreen('riskChecker', this)">🔍 TK Risk Checker</button>
+      <button class="nav-link" onclick="showScreen('passport', this)">📜 Innovation Passport</button>
+      <button class="nav-link" onclick="showScreen('regulation', this)">🌐 ReguRoute</button>
+      <button class="nav-link" onclick="showScreen('sources', this)">📚 Source Library</button>
+      <button class="nav-link" onclick="showScreen('profile', this)">👤 My Profile</button>
+
+      <div class="sidebar-note">
+        <strong>Important:</strong><br />
+        IP-SAKTI provides educational support. It does not replace legal,
+        patent, clinical or regulatory professionals.
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <p id="pageSubtitle">Your Ayurveda innovation workspace</p>
+        </div>
+
+        <div class="topbar-right">
+          <select id="languageSelect">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Marathi</option>
+          </select>
+
+          <button class="profile-button" onclick="showScreen('profile')">
+            <span id="avatar">N</span>
+            <span id="topUserName">User</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content-area">
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="screen active">
+
+          <div class="dashboard-grid">
+
+            <div class="card">
+              <h3>Welcome to IP-SAKTI Sahayak</h3>
+
+              <p>
+                Build ethical Ayurveda innovations by identifying traditional
+                knowledge, documenting original contributions and preparing
+                for IP and regulatory review.
+              </p>
+
+              <div class="action-grid">
+                <button onclick="showScreen('riskChecker')">🔍 Check TK Risk</button>
+                <button onclick="showScreen('passport')">📜 Create Passport</button>
+                <button onclick="showScreen('regulation')">🌐 Find ReguRoute</button>
+                <button onclick="showScreen('assistant')">🤖 Ask AI Sahayak</button>
+              </div>
+            </div>
+
+            <div class="card score-card">
+              <h3>Innovation Readiness</h3>
+
+              <div class="score-circle">
+                <strong id="scoreValue">--</strong>
+                <span>SAKTI Score</span>
+              </div>
+
+              <p>Create an Innovation Passport to calculate your demo readiness score.</p>
+            </div>
+
+            <div class="card">
+              <h3>How IP-SAKTI Helps</h3>
+
+              <ul class="dashboard-list">
+                <li>Identify traditional knowledge overlap</li>
+                <li>Document innovation and source data</li>
+                <li>Prepare a patent-readiness checklist</li>
+                <li>Record resource provenance</li>
+                <li>Explore regulatory pathways</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Safety Reminder</h3>
+              <p>
+                Do not publicly disclose a potentially new invention before
+                consulting a registered patent professional.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="visual-insight-section">
+
+            <div class="visual-card herb-visual">
+              <div class="visual-overlay">
+                <span>AYURVEDA KNOWLEDGE</span>
+                <h3>Respect Traditional Knowledge</h3>
+                <p>
+                  Ayurveda knowledge should be respected, acknowledged and not
+                  wrongly claimed as an individual invention.
+                </p>
+              </div>
+            </div>
+
+            <div class="visual-card ai-visual">
+              <div class="visual-overlay">
+                <span>RESPONSIBLE ARTIFICIAL INTELLIGENCE</span>
+                <h3>AI With Source Awareness</h3>
+                <p>
+                  The final system can use RAG to retrieve approved legal,
+                  Ayurveda and regulatory source documents.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- AI SAHAYAK -->
+        <section id="assistant" class="screen">
+          <h2>AI Sahayak</h2>
+
+          <p class="screen-description">
+            Ask educational questions about Ayurveda innovation, patents,
+            traditional knowledge, export rules, product claims and biodiversity.
+          </p>
+
+          <div class="chat-container">
+
+            <div class="chat-header">
+              <div class="chat-icon">🤖</div>
+
+              <div>
+                <h3>IP-SAKTI AI Sahayak</h3>
+                <p>● Demo source-aware assistant</p>
+              </div>
+            </div>
+
+            <div id="chatMessages" class="chat-messages">
+              <div class="message bot-message">
+                Namaste! I am IP-SAKTI Sahayak.<br /><br />
+                Ask questions such as:<br />
+                “Can I patent an Ayurveda formulation?”<br />
+                “What information should I record about herbs?”<br />
+                “How can I export an Ayurveda product?”
+              </div>
+            </div>
+
+            <div class="chat-input">
+              <input
+                id="chatInput"
+                type="text"
+                placeholder="Ask a question..."
+                onkeypress="handleChatEnter(event)"
+              />
+              <button onclick="sendChatMessage()">Send</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- TK RISK CHECKER -->
+        <section id="riskChecker" class="screen">
+          <h2>Traditional Knowledge Risk Checker</h2>
+
+          <p class="screen-description">
+            Describe your innovation. The prototype will identify possible
+            traditional knowledge overlap and suggest next steps.
+          </p>
+
+          <div class="card form-card">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Innovation / Product Name</label>
+                <input id="riskProductName" placeholder="Example: Herbal stress support capsule" />
+              </div>
+
+              <div>
+                <label>Product Type</label>
+                <select id="riskProductType">
+                  <option>Ayurvedic formulation</option>
+                  <option>Herbal medicine</option>
+                  <option>Nutraceutical / supplement</option>
+                  <option>Cosmetic / wellness product</option>
+                  <option>Manufacturing process</option>
+                  <option>Digital health tool</option>
+                </select>
+              </div>
+
+              <div class="full-column">
+                <label>Ingredients / Components</label>
+                <input
+                  id="riskIngredients"
+                  placeholder="Example: Ashwagandha, turmeric, shatavari, plant coating"
+                />
+              </div>
+
+              <div class="full-column">
+                <label>What is your new technical contribution?</label>
+                <textarea
+                  id="riskNovelty"
+                  placeholder="Example: New controlled-release method, shelf-life improvement, new device or manufacturing process..."
+                ></textarea>
+              </div>
+
+              <div>
+                <label>Target Jurisdiction</label>
+                <select id="riskJurisdiction">
+                  <option>India</option>
+                  <option>European Union</option>
+                  <option>United States</option>
+                  <option>International</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Public Disclosure Status</label>
+                <select id="riskDisclosure">
+                  <option value="no">No, confidential</option>
+                  <option value="yes">Yes, disclosed publicly</option>
+                  <option value="unknown">Not sure</option>
+                </select>
+              </div>
+
+            </div>
+
+            <button class="primary-btn small-btn" onclick="checkRisk()">
+              Analyse Risk →
+            </button>
+
+            <button class="secondary-btn" onclick="clearRiskForm()">
+              Clear
+            </button>
+
+            <div id="riskResult" class="result-box hidden"></div>
+          </div>
+        </section>
+
+        <!-- INNOVATION PASSPORT -->
+        <section id="passport" class="screen">
+          <h2>Innovation Passport Generator</h2>
+
+          <p class="screen-description">
+            Create a structured record of your innovation, traditional knowledge context,
+            original technical contribution and resource provenance.
+          </p>
+
+          <div class="card form-card">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Innovation Name</label>
+                <input id="passportName" placeholder="Example: HerboRelease Technology" />
+              </div>
+
+              <div>
+                <label>Innovator / Organisation</label>
+                <input id="passportOwner" placeholder="Your name or startup name" />
+              </div>
+
+              <div class="full-column">
+                <label>Problem You Are Solving</label>
+                <textarea id="passportProblem" placeholder="Describe the practical or technical problem..."></textarea>
+              </div>
+
+              <div class="full-column">
+                <label>Traditional Knowledge / Existing Ayurveda Elements</label>
+                <textarea id="passportTK" placeholder="Example: Uses known Ayurvedic herbs or formulations..."></textarea>
+              </div>
+
+              <div class="full-column">
+                <label>Your New / Original Technical Contribution</label>
+                <textarea id="passportNew" placeholder="Example: New process, delivery method, device, algorithm or test method..."></textarea>
+              </div>
+
+              <div>
+                <label>Ingredient / Resource Source</label>
+                <input id="passportSource" placeholder="Supplier, farm, region or source details" />
+              </div>
+
+              <div>
+                <label>Target Market</label>
+                <select id="passportMarket">
+                  <option>India</option>
+                  <option>India + European Union</option>
+                  <option>India + United States</option>
+                  <option>Global</option>
+                </select>
+              </div>
+
+            </div>
+
+            <button class="primary-btn small-btn" onclick="generatePassport()">
+              Generate Passport →
+            </button>
+
+            <button class="secondary-btn" onclick="downloadPassport()">
+              Download Passport
+            </button>
+
+            <div id="passportOutput" class="passport-output hidden">
+
+              <div class="passport-header">
+                <div>
+                  <h3>IP-SAKTI Innovation Passport</h3>
+                  <p>Ethical Ayurveda Innovation Record</p>
+                </div>
+
+                <span id="passportId">IPSAKTI-000000</span>
+              </div>
+
+              <div class="passport-grid">
+                <div>
+                  <strong>Innovation Name</strong>
+                  <p id="outName">—</p>
+                </div>
+
+                <div>
+                  <strong>Innovator / Organisation</strong>
+                  <p id="outOwner">—</p>
+                </div>
+
+                <div>
+                  <strong>Problem Statement</strong>
+                  <p id="outProblem">—</p>
+                </div>
+
+                <div>
+                  <strong>Target Market</strong>
+                  <p id="outMarket">—</p>
+                </div>
+
+                <div>
+                  <strong>Traditional Knowledge Context</strong>
+                  <p id="outTK">—</p>
+                </div>
+
+                <div>
+                  <strong>Original Contribution</strong>
+                  <p id="outNew">—</p>
+                </div>
+
+                <div>
+                  <strong>Resource Provenance</strong>
+                  <p id="outSource">—</p>
+                </div>
+
+                <div>
+                  <strong>Recommended Next Step</strong>
+                  <p>
+                    Preserve evidence, check prior art, document sources and seek
+                    professional IP or regulatory review.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- REGULATION -->
+        <section id="regulation" class="screen">
+          <h2>ReguRoute Navigator</h2>
+
+          <p class="screen-description">
+            Select product type, target market and claim to receive an educational
+            compliance pathway.
+          </p>
+
+          <div class="card form-card">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Product Category</label>
+                <select id="regProduct">
+                  <option>Ayurvedic medicine</option>
+                  <option>Herbal dietary supplement</option>
+                  <option>Ayurvedic cosmetic</option>
+                  <option>Wellness product</option>
+                  <option>Digital health / AI tool</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Target Market</label>
+                <select id="regMarket">
+                  <option>India</option>
+                  <option>European Union</option>
+                  <option>United States</option>
+                  <option>India + European Union</option>
+                  <option>India + United States</option>
+                </select>
+              </div>
+
+              <div class="full-column">
+                <label>Intended Marketing Claim</label>
+                <textarea
+                  id="regClaim"
+                  placeholder="Example: Supports general wellness / Supports stress management..."
+                ></textarea>
+              </div>
+
+            </div>
+
+            <button class="primary-btn small-btn" onclick="findRegRoute()">
+              Generate Compliance Path →
+            </button>
+
+            <div id="regulationResult" class="result-box hidden"></div>
+          </div>
+        </section>
+
+        <!-- SOURCE LIBRARY -->
+        <section id="sources" class="screen">
+          <h2>Source Library</h2>
+
+          <p class="screen-description">
+            These official sources can be added to the final RAG document collection.
+          </p>
+
+          <div class="source-grid">
+
+            <div class="source-card">
+              <span>TRADITIONAL KNOWLEDGE</span>
+              <h3>Traditional Knowledge Digital Library</h3>
+              <p>Indian traditional medicinal knowledge and defensive patent protection resources.</p>
+              <a href="https://www.csir.res.in/en/documents/tkdl" target="_blank">Open Source ↗</a>
+            </div>
+
+            <div class="source-card">
+              <span>AYUSH REGULATION</span>
+              <h3>Ministry of AYUSH</h3>
+              <p>Government information on Ayurveda, AYUSH systems, policy and regulation.</p>
+              <a href="https://ayush.gov.in/" target="_blank">Open Source ↗</a>
+            </div>
+
+            <div class="source-card">
+              <span>PATENT LAW</span>
+              <h3>Intellectual Property India</h3>
+              <p>Patent forms, public patent resources and applicant guidance in India.</p>
+              <a href="https://ipindia.gov.in/" target="_blank">Open Source ↗</a>
+            </div>
+
+            <div class="source-card">
+              <span>BIODIVERSITY</span>
+              <h3>National Biodiversity Authority</h3>
+              <p>Biological resources, access and benefit-sharing guidance.</p>
+              <a href="https://nbaindia.in/" target="_blank">Open Source ↗</a>
+            </div>
+
+            <div class="source-card">
+              <span>INTERNATIONAL IP</span>
+              <h3>WIPO Traditional Knowledge</h3>
+              <p>International information on IP, genetic resources and traditional knowledge.</p>
+              <a href="https://www.wipo.int/en/web/traditional-knowledge" target="_blank">Open Source ↗</a>
+            </div>
+
+            <div class="source-card">
+              <span>EU HERBAL PRODUCTS</span>
+              <h3>European Medicines Agency</h3>
+              <p>European information on herbal medicinal products and related pathways.</p>
+              <a href="https://www.ema.europa.eu/en/human-regulatory-overview/herbal-medicinal-products" target="_blank">Open Source ↗</a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="profile" class="screen">
+          <h2>My Profile</h2>
+
+          <p class="screen-description">
+            Manage your profile details for this browser-based SIH prototype.
+          </p>
+
+          <div class="card form-card">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Full Name</label>
+                <input id="profileName" />
+              </div>
+
+              <div>
+                <label>Email Address</label>
+                <input id="profileEmail" type="email" />
+              </div>
+
+              <div>
+                <label>Preferred Language</label>
+                <select id="profileLanguage">
+                  <option>English</option>
+                  <option>Hindi</option>
+                  <option>Marathi</option>
+                </select>
+              </div>
+
+              <div>
+                <label>User Type</label>
+                <select>
+                  <option>Student / Researcher</option>
+                  <option>Ayurveda Practitioner</option>
+                  <option>Startup / MSME</option>
+                  <option>Manufacturer</option>
+                  <option>Patent Professional</option>
+                </select>
+              </div>
+
+              <div class="full-column">
+                <label>Ethical Use Commitment</label>
+                <textarea readonly>I understand that IP-SAKTI is an educational prototype. I will not treat AI output as final patent, legal, medical, regulatory or compliance advice. I will consult relevant experts before filing, manufacturing, exporting or making health claims.</textarea>
+              </div>
+
+            </div>
+
+            <button class="primary-btn small-btn" onclick="saveProfile()">
+              Save Profile
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </section>
+
+  <script>
+    let currentUser = {
+      name: "User",
+      email: ""
+    };
+
+    const pageDetails = {
+      dashboard: {
+        title: "Dashboard",
+        subtitle: "Your Ayurveda innovation workspace"
+      },
+      assistant: {
+        title: "AI Sahayak",
+        subtitle: "Ask source-aware IP and regulation questions"
+      },
+      riskChecker: {
+        title: "TK Risk Checker",
+        subtitle: "Check possible traditional knowledge overlap"
+      },
+      passport: {
+        title: "Innovation Passport",
+        subtitle: "Document your ethical innovation journey"
+      },
+      regulation: {
+        title: "ReguRoute Navigator",
+        subtitle: "Explore possible regulatory pathways"
+      },
+      sources: {
+        title: "Source Library",
+        subtitle: "Official sources for the future RAG knowledge base"
+      },
+      profile: {
+        title: "My Profile",
+        subtitle: "Manage your account details"
+      }
+    };
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("loginName").value.trim();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const error = document.getElementById("loginError");
+
+      if (name.length < 2) {
+        error.textContent = "Please enter your full name.";
+        return;
+      }
+
+      if (!email.includes("@")) {
+        error.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      if (password.length < 4) {
+        error.textContent = "Password must contain at least 4 characters.";
+        return;
+      }
+
+      currentUser.name = name;
+      currentUser.email = email;
+
+      updateUserInterface();
+
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("startPage").classList.remove("hidden");
+
+      error.textContent = "";
+    });
+
+    function updateUserInterface() {
+      const firstName = currentUser.name.split(" ")[0];
+      const initial = currentUser.name.charAt(0).toUpperCase();
+
+      document.getElementById("welcomeUser").textContent = "Welcome, " + firstName;
+      document.getElementById("topUserName").textContent = firstName;
+      document.getElementById("avatar").textContent = initial;
+
+      document.getElementById("passportOwner").value = currentUser.name;
+      document.getElementById("profileName").value = currentUser.name;
+      document.getElementById("profileEmail").value = currentUser.email;
+    }
+
+    function launchApp() {
+      document.getElementById("startPage").classList.add("hidden");
+      document.getElementById("appPage").classList.remove("hidden");
+      showScreen("dashboard");
+    }
+
+    function logoutUser() {
+      currentUser = {
+        name: "User",
+        email: ""
+      };
+
+      document.getElementById("appPage").classList.add("hidden");
+      document.getElementById("startPage").classList.add("hidden");
+      document.getElementById("loginPage").classList.remove("hidden");
+
+      document.getElementById("loginPassword").value = "";
+      document.getElementById("loginError").textContent = "";
+    }
+
+    function showScreen(screenId, buttonElement = null) {
+      document.querySelectorAll(".screen").forEach(function(screen) {
+        screen.classList.remove("active");
+      });
+
+      document.getElementById(screenId).classList.add("active");
+
+      document.querySelectorAll(".nav-link").forEach(function(button) {
+        button.classList.remove("active");
+      });
+
+      if (buttonElement) {
+        buttonElement.classList.add("active");
+      } else {
+        document.querySelectorAll(".nav-link").forEach(function(button) {
+          if (button.getAttribute("onclick").includes("'" + screenId + "'")) {
+            button.classList.add("active");
+          }
+        });
+      }
+
+      document.getElementById("pageTitle").textContent = pageDetails[screenId].title;
+      document.getElementById("pageSubtitle").textContent = pageDetails[screenId].subtitle;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function clearRiskForm() {
+      document.getElementById("riskProductName").value = "";
+      document.getElementById("riskIngredients").value = "";
+      document.getElementById("riskNovelty").value = "";
+      document.getElementById("riskResult").classList.add("hidden");
+    }
+
+    function checkRisk() {
+      const productName = document.getElementById("riskProductName").value.trim();
+      const ingredients = document.getElementById("riskIngredients").value.trim();
+      const novelty = document.getElementById("riskNovelty").value.trim();
+      const disclosure = document.getElementById("riskDisclosure").value;
+      const result = document.getElementById("riskResult");
+
+      if (!productName || !ingredients || !novelty) {
+        result.classList.remove("hidden");
+        result.innerHTML = `
+          <h4>Missing Information</h4>
+          <p>Please enter the product name, ingredients and original technical contribution.</p>
+        `;
+        return;
+      }
+
+      const traditionalWords = [
+        "ashwagandha",
+        "turmeric",
+        "haldi",
+        "shatavari",
+        "triphala",
+        "neem",
+        "tulsi",
+        "guduchi",
+        "amla",
+        "brahmi",
+        "ghee",
+        "churna",
+        "ayurveda"
+      ];
+
+      const ingredientText = ingredients.toLowerCase();
+
+      const matches = traditionalWords.filter(function(word) {
+        return ingredientText.includes(word);
+      });
+
+      let keywordResult = "";
+
+      if (matches.length > 0) {
+        keywordResult = `
+          The system detected possible traditional Ayurveda terms:
+          <strong>${matches.join(", ")}</strong>.
+          These ingredients or known uses may create prior-art or
+          traditional-knowledge concerns.
+        `;
+      } else {
+        keywordResult = `
+          This prototype did not detect common traditional-knowledge keywords.
+          That does not mean your idea is automatically new or patentable.
+        `;
+      }
+
+      let disclosureResult = "";
+
+      if (disclosure === "yes") {
+        disclosureResult = `
+          <li><strong>Public Disclosure Alert:</strong> You selected that this idea was publicly disclosed. Consult a patent professional before further publication.</li>
+        `;
+      }
+
+      if (disclosure === "unknown") {
+        disclosureResult = `
+          <li><strong>Disclosure Review Needed:</strong> Check whether the idea appeared in a competition, presentation, social-media post, paper, website or video.</li>
+        `;
+      }
+
+      result.classList.remove("hidden");
+      result.innerHTML = `
+        <h4>Prototype Result: Moderate / Needs Professional Review</h4>
+
+        <p>${keywordResult}</p>
+
+        <ul>
+          <li><strong>New technical contribution:</strong> “${novelty}”</li>
+          <li><strong>Recommendation:</strong> Focus patent discussion on a new process, device, testing method, delivery method or measurable improvement.</li>
+          <li><strong>Evidence:</strong> Preserve test data, manufacturing details, lab reports and comparative performance results.</li>
+          <li><strong>Provenance:</strong> Record botanical names, supplier, source location and relevant documentation.</li>
+          <li><strong>Professional support:</strong> Consult a registered patent agent, IP lawyer or relevant expert before filing.</li>
+          ${disclosureResult}
+        </ul>
+      `;
+    }
+
+    function generatePassport() {
+      const name = document.getElementById("passportName").value.trim();
+      const owner = document.getElementById("passportOwner").value.trim();
+      const problem = document.getElementById("passportProblem").value.trim();
+      const tk = document.getElementById("passportTK").value.trim();
+      const innovation = document.getElementById("passportNew").value.trim();
+      const source = document.getElementById("passportSource").value.trim();
+      const market = document.getElementById("passportMarket").value;
+
+      if (!name || !owner || !problem || !tk || !innovation) {
+        alert("Please fill Innovation Name, Innovator, Problem, Traditional Knowledge Context and Original Contribution.");
+        return;
+      }
+
+      const passportId = "IPSAKTI-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random() * 900000);
+      const score = Math.floor(Math.random() * 18) + 61;
+
+      document.getElementById("passportId").textContent = passportId;
+      document.getElementById("outName").textContent = name;
+      document.getElementById("outOwner").textContent = owner;
+      document.getElementById("outProblem").textContent = problem;
+      document.getElementById("outTK").textContent = tk;
+      document.getElementById("outNew").textContent = innovation;
+      document.getElementById("outSource").textContent = source || "No source data entered. Add supplier, region and provenance records.";
+      document.getElementById("outMarket").textContent = market;
+
+      document.getElementById("passportOutput").classList.remove("hidden");
+      document.getElementById("scoreValue").textContent = score;
+
+      setTimeout(function() {
+        document.getElementById("passportOutput").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 100);
+    }
+
+    function downloadPassport() {
+      const output = document.getElementById("passportOutput");
+
+      if (output.classList.contains("hidden")) {
+        alert("Please generate the Innovation Passport first.");
+        return;
+      }
+
+      const passportText = `
+IP-SAKTI INNOVATION PASSPORT
+${document.getElementById("passportId").textContent}
+
+Innovation Name:
+${document.getElementById("outName").textContent}
+
+Innovator / Organisation:
+${document.getElementById("outOwner").textContent}
+
+Problem Statement:
+${document.getElementById("outProblem").textContent}
+
+Traditional Knowledge Context:
+${document.getElementById("outTK").textContent}
+
+Original Technical Contribution:
+${document.getElementById("outNew").textContent}
+
+Resource Provenance:
+${document.getElementById("outSource").textContent}
+
+Target Market:
+${document.getElementById("outMarket").textContent}
+
+Recommended Next Step:
+Preserve technical evidence, check prior art, document sources,
+and seek professional patent and regulatory review.
+
+Disclaimer:
+This document is an educational SIH prototype output.
+It is not a patent opinion, legal opinion, regulatory approval,
+medical advice or compliance certificate.
+      `;
+
+      const blob = new Blob([passportText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = "IP-SAKTI-Innovation-Passport.txt";
+      link.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function findRegRoute() {
+      const product = document.getElementById("regProduct").value;
+      const market = document.getElementById("regMarket").value;
+      const claim = document.getElementById("regClaim").value.trim();
+      const result = document.getElementById("regulationResult");
+
+      if (!claim) {
+        result.classList.remove("hidden");
+        result.innerHTML = `
+          <h4>Missing Product Claim</h4>
+          <p>Enter your intended marketing or product claim first.</p>
+        `;
+        return;
+      }
+
+      const highRiskWords = [
+        "treat",
+        "cure",
+        "diagnose",
+        "prevent",
+        "disease",
+        "cancer",
+        "diabetes",
+        "covid",
+        "arthritis"
+      ];
+
+      const lowerClaim = claim.toLowerCase();
+
+      const isHighRisk = highRiskWords.some(function(word) {
+        return lowerClaim.includes(word);
+      });
+
+      let routeDetails = "";
+
+      if (market.includes("India")) {
+        routeDetails += `
+          <li><strong>India:</strong> Confirm product classification, manufacturing licence requirements, quality standards, GMP obligations, product labels and permitted claims.</li>
+        `;
+      }
+
+      if (market.includes("European Union")) {
+        routeDetails += `
+          <li><strong>European Union:</strong> Check whether your product is a medicine, herbal product, supplement, cosmetic or food. Classification strongly affects the regulatory route.</li>
+        `;
+      }
+
+      if (market.includes("United States")) {
+        routeDetails += `
+          <li><strong>United States:</strong> Determine whether the product is marketed as a dietary supplement, food, cosmetic or drug. Product claims can change the legal category.</li>
+        `;
+      }
+
+      const warning = isHighRisk
+        ? `<li><strong>High Claim-Risk Alert:</strong> Your claim includes treatment, cure, prevention, diagnosis or disease-related language. Professional regulatory review is strongly recommended before marketing.</li>`
+        : `<li><strong>Claim Guidance:</strong> Keep claims evidence-based and avoid unsupported therapeutic or disease-treatment statements.</li>`;
+
+      result.classList.remove("hidden");
+      result.innerHTML = `
+        <h4>ReguRoute: ${product} → ${market}</h4>
+
+        <p>Your stated product claim: <strong>“${claim}”</strong></p>
+
+        <ul>
+          ${routeDetails}
+          ${warning}
+          <li><strong>Documents to prepare:</strong> Formula, ingredient specification, supplier records, quality testing, batch records, manufacturing details and label draft.</li>
+          <li><strong>Final step:</strong> Verify current requirements with the relevant authority and qualified regulatory professional before launch or export.</li>
+        </ul>
+      `;
+    }
+
+    function handleChatEnter(event) {
+      if (event.key === "Enter") {
+        sendChatMessage();
+      }
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById("chatInput");
+      const question = input.value.trim();
+      const chat = document.getElementById("chatMessages");
+
+      if (!question) return;
+
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user-message";
+      userMessage.textContent = question;
+      chat.appendChild(userMessage);
+
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+
+      setTimeout(function() {
+        const botMessage = document.createElement("div");
+        botMessage.className = "message bot-message";
+        botMessage.innerHTML = getAIResponse(question);
+
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+      }, 500);
+    }
+
+    function getAIResponse(question) {
+      const text = question.toLowerCase();
+
+      if (text.includes("patent") || text.includes("patentable")) {
+        return `
+          Known Ayurvedic herbs, known formulations and traditional uses can create
+          traditional-knowledge or prior-art concerns. A possible innovation may be a
+          genuinely new process, device, delivery method, testing method or measurable
+          technical improvement.<br /><br />
+
+          Use the TK Risk Checker and preserve technical evidence before seeking
+          a formal patentability opinion.<br /><br />
+
+          <small><strong>Demo source:</strong> IP-SAKTI prototype patent-readiness guidance</small>
+        `;
+      }
+
+      if (
+        text.includes("export") ||
+        text.includes("europe") ||
+        text.includes("eu") ||
+        text.includes("usa") ||
+        text.includes("united states")
+      ) {
+        return `
+          Export requirements depend first on the product category:
+          medicine, herbal product, dietary supplement, cosmetic, food or wellness product.
+          Ingredients, product format and marketing claims affect this classification.<br /><br />
+
+          Use ReguRoute Navigator to see an educational pathway for India, EU or US.<br /><br />
+
+          <small><strong>Demo source:</strong> IP-SAKTI product-classification guidance</small>
+        `;
+      }
+
+      if (
+        text.includes("traditional knowledge") ||
+        text.includes("tkdl") ||
+        text.includes("ayurveda")
+      ) {
+        return `
+          Traditional knowledge should be respected and not wrongly claimed as a
+          new individual invention. Your innovation may be a new technical method,
+          manufacturing process, device, quality-control system or validated improvement,
+          rather than the known herb or traditional formulation itself.<br /><br />
+
+          Use Innovation Passport to separate existing knowledge from your original contribution.<br /><br />
+
+          <small><strong>Demo source:</strong> IP-SAKTI traditional-knowledge boundary guidance</small>
+        `;
+      }
+
+      if (
+        text.includes("biodiversity") ||
+        text.includes("benefit sharing") ||
+        text.includes("herb") ||
+        text.includes("ingredient")
+      ) {
+        return `
+          For each herb or biological resource, record the botanical name, plant part,
+          supplier, source location, cultivated or wild-harvested status and available
+          supporting documents. This improves traceability and ethical innovation practice.<br /><br />
+
+          <small><strong>Demo source:</strong> IP-SAKTI provenance guidance</small>
+        `;
+      }
+
+      return `
+        I am currently operating as a frontend SIH prototype assistant.
+        In the final project, this answer can be generated by a RAG backend
+        using approved sources from AYUSH, IP India, WIPO, TKDL-related resources,
+        biodiversity authorities and international regulators.<br /><br />
+
+        You can ask about patents, Ayurveda formulations, traditional knowledge,
+        product claims, source documentation, export and regulations.<br /><br />
+
+        <small><strong>Demo source:</strong> IP-SAKTI prototype response</small>
+      `;
+    }
+
+    function saveProfile() {
+      const name = document.getElementById("profileName").value.trim();
+      const email = document.getElementById("profileEmail").value.trim();
+      const language = document.getElementById("profileLanguage").value;
+
+      if (!name || !email.includes("@")) {
+        alert("Please enter a valid name and email.");
+        return;
+      }
+
+      currentUser.name = name;
+      currentUser.email = email;
+
+      document.getElementById("languageSelect").value = language;
+      updateUserInterface();
+
+      alert("Profile saved successfully in this browser session.");
+    }
+  </script>
+</body>
+</html>
